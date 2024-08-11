@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Get Your Artist - Artist Booking and Mangement Website
 
 Packages and Installation - 
@@ -28,3 +29,7 @@ Pages -
 •	Blogs
 •	Chat
 •	Feedback
+=======
+# GetYourArtist
+Artist Mangement Website
+>>>>>>> 7cc75a69c0f5a3502d6c25aca5fcece76847c3c9
