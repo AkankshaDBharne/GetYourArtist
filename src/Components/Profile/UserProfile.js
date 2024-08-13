@@ -12,6 +12,8 @@ const UserProfile = () => {
     address: '',
     profilePhoto: null,
     description: '',
+    username: '',
+    password: '', // Added for password management
   });
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -30,6 +32,8 @@ const UserProfile = () => {
         address: '123 Main St',
         profilePhoto: null,
         description: 'This is a brief description about John Doe.',
+        username: 'john_doe',
+        password: '', // Clear password on load
       });
     };
 
@@ -79,6 +83,21 @@ const UserProfile = () => {
             User Profile
           </h2>
           <form onSubmit={handleSubmit}>
+            {/* Username Field */}
+            <div className="mb-4 lg:mb-6">
+              <label className="block text-gray-700 mb-2 lg:mb-4">Username:</label>
+              <input
+                type="text"
+                name="username"
+                value={userData.username}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 lg:px-4 lg:py-3"
+                disabled={!isEditMode}
+                required
+              />
+            </div>
+
+            {/* First Name Field */}
             <div className="mb-4 lg:mb-6">
               <label className="block text-gray-700 mb-2 lg:mb-4">First Name:</label>
               <input
@@ -92,6 +111,7 @@ const UserProfile = () => {
               />
             </div>
 
+            {/* Last Name Field */}
             <div className="mb-4 lg:mb-6">
               <label className="block text-gray-700 mb-2 lg:mb-4">Last Name:</label>
               <input
@@ -105,6 +125,7 @@ const UserProfile = () => {
               />
             </div>
 
+            {/* Email Field */}
             <div className="mb-4 lg:mb-6">
               <label className="block text-gray-700 mb-2 lg:mb-4">Email:</label>
               <input
@@ -118,6 +139,7 @@ const UserProfile = () => {
               />
             </div>
 
+            {/* Phone Number Field */}
             <div className="mb-4 lg:mb-6">
               <label className="block text-gray-700 mb-2 lg:mb-4">Phone Number:</label>
               <input
@@ -131,6 +153,7 @@ const UserProfile = () => {
               />
             </div>
 
+            {/* Address Field */}
             <div className="mb-4 lg:mb-6">
               <label className="block text-gray-700 mb-2 lg:mb-4">Address:</label>
               <input
@@ -143,6 +166,7 @@ const UserProfile = () => {
               />
             </div>
 
+            {/* Profile Photo Upload */}
             <div className="mb-6 lg:mb-8">
               <label className="block text-gray-700 mb-2 lg:mb-4">Upload Profile Photo:</label>
               <input
@@ -154,6 +178,7 @@ const UserProfile = () => {
               />
             </div>
 
+            {/* Description Field */}
             <div className="mb-6 lg:mb-8">
               <label className="block text-gray-700 mb-2 lg:mb-4">Description:</label>
               <textarea
@@ -164,6 +189,20 @@ const UserProfile = () => {
                 disabled={!isEditMode}
               />
             </div>
+
+            {/* Password Field (only visible in edit mode) */}
+            {isEditMode && (
+              <div className="mb-6 lg:mb-8">
+                <label className="block text-gray-700 mb-2 lg:mb-4">Password:</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={userData.password}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 lg:px-4 lg:py-3"
+                />
+              </div>
+            )}
 
             <div className="flex gap-4 gap-4 items-center justify-center">
               <button

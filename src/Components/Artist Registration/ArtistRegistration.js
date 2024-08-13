@@ -18,6 +18,7 @@ const ArtistRegistration = () => {
     workPhotos: [],
     socialLinks: { facebook: '', instagram: '', twitter: '', snapchat: '' },
     confirmation: false,
+    gender: '', 
   });
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -25,10 +26,11 @@ const ArtistRegistration = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const { firstName, lastName, genre, address, email, phone, idProof, description } = formData;
+    const { firstName, lastName, genre, address, email, phone, idProof, description, gender } = formData;
+
 
     // Check if all required fields are filled
-    const isValid = firstName && lastName && genre && address && email && phone && idProof && description;
+    const isValid = firstName && lastName && genre && address && email && phone && idProof && description && gender;
 
     setIsFormValid(isValid);
   }, [formData]);
@@ -70,11 +72,12 @@ const ArtistRegistration = () => {
       website: '',
       phone: '',
       profilePhoto: null,
-      idProof: null,
+      idProof: ' ',
       description: '',
       workPhotos: [],
       socialLinks: { facebook: '', instagram: '', twitter: '', snapchat: '' },
       confirmation: false,
+      gender: '',
     });
     setIsFormValid(false);
   };
@@ -119,6 +122,48 @@ const ArtistRegistration = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 lg:px-4 lg:py-3"
                 required
               />
+            </div>
+
+            <div className="mb-4 lg:mb-6">
+              <label className="block text-black-700 mb-2 lg:mb-4">Gender*:</label>
+              <div className="flex gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Male"
+                    checked={formData.gender === 'Male'}
+                    onChange={handleChange}
+                    className="mr-2"
+                    required
+                  />
+                  Male
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Female"
+                    checked={formData.gender === 'Female'}
+                    onChange={handleChange}
+                    className="mr-2"
+                    required
+                  />
+                  Female
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Other"
+                    checked={formData.gender === 'Other'}
+                    onChange={handleChange}
+                    className="mr-2"
+                    required
+                  />
+                  Other
+                </label>
+              </div>
             </div>
 
             <div className="mb-4 lg:mb-6">
@@ -205,10 +250,11 @@ const ArtistRegistration = () => {
             <div className="mb-6 lg:mb-8">
               <label className="block text-black-700 mb-2 lg:mb-4">Upload ID Proof*:</label>
               <input
-                type="file"
+                type="text"
                 name="idProof"
+                value={formData.idProof}
                 onChange={handleChange}
-                className="w-full text-sm lg:text-base"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 lg:px-4 lg:py-3"
                 required
               />
             </div>

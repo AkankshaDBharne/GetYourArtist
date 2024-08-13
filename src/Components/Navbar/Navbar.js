@@ -1,12 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearUser } from '../../Utils/userSlice';
 
-const Navbar = ({ username, onLogout }) => {
+const Navbar = () => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
+    const dispatch = useDispatch();
+    const username = useSelector(state => state.user.username);
 
-    // Handle outside clicks to close the dropdown
+    const handleLogout = () => {
+        dispatch(clearUser());
+        navigate('/');
+    };
+
+    const toggleDropdown = () => {
+        setDropdownOpen(prev => !prev);
+    };
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -20,32 +32,23 @@ const Navbar = ({ username, onLogout }) => {
         };
     }, []);
 
-    const handleLogout = () => {
-        onLogout();
-        navigate('/');
-    };
-
-    const toggleDropdown = () => {
-        setDropdownOpen(prev => !prev);
-    };
-
     return (
         <nav className="bg-gradient-to-b from-red-200 to-red-50 text-white flex items-center justify-between mt-5 mb-2 mx-5 p-4 shadow-md">
             <div className="flex items-center">
-                <div className="flex-shrink-0">
-                    <img src="/Images/LogoC_GYA.png" alt="Logo" className="h-12 w-auto" />
-                </div>
-                <p className='text-red-700 text-lg font-bold'>Get Your Artist</p>
+                <Link to="/home" className="flex items-center">
+                    <div className="flex-shrink-0">
+                        <img src="/Images/LogoC_GYA.png" alt="Logo" className="h-12 w-auto" />
+                    </div>
+                    <p className='text-red-700 text-lg font-bold ml-2'>Get Your Artist</p>
+                </Link>
             </div>
 
             {/* Center: Navigation Links */}
             <div className="flex flex-grow justify-center space-x-6 text-red-700 text-md font-semibold">
                 <Link to="/home" className="hover:text-gray-400">Home</Link>
                 <Link to="/aboutus" className="hover:text-gray-400">About Us</Link>
-
-                {/* Artist Link */}
                 <Link to="/artists" className="text-red-700 hover:text-gray-400">Artist</Link>
-
+                
                 {/* Dropdown Menu */}
                 <div className="relative" ref={dropdownRef}>
                     <button
@@ -105,9 +108,10 @@ const Navbar = ({ username, onLogout }) => {
                             d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
                         />
                     </svg>
-                   
                 </Link>
-                <span className="text-md text-stone-700 font-bold">{username}</span>
+                {username && (
+                    <span className="text-md text-stone-700 font-bold">{username}</span>
+                )}
                 <button
                     onClick={handleLogout}
                     className="bg-orange-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"

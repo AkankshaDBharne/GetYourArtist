@@ -48,14 +48,14 @@ const Home = () => {
     };
 
     const handleImageClick = () => {
-        navigate('/events'); 
+        navigate('/events');
     };
 
     return (
         <div className="overflow-hidden">
             <Navbar username="Akanksha" onLogout={() => { }} />
 
-            <div className="relative w-full h-screen bg-cover bg-center transition-transform zoom-in-animation" style={{ backgroundImage: "url('/Images/HomeMain.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div className="relative w-full h-screen bg-cover bg-center transition-transform zoom-in-animation mt-10" style={{ backgroundImage: "url('/Images/HomeMain.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <div className="absolute inset-0 bg-black opacity-40"></div>
                 <div className="relative z-10 container mx-auto px-4 py-16 text-center text-white">
                     <h1 className="text-4xl font-bold mb-8 mt-60">Celebrating Creativity, Connecting Talent</h1>
@@ -127,28 +127,28 @@ const Home = () => {
                                     <p className="text-gray-700">Singer/Songwriter</p>
                                 </div>
                             </Link>
-                            <Link to="/artistid" className="inline-block w-64 h-80 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                            <Link to="//artist/:id" className="inline-block w-64 h-80 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
                                 <img src="/Images/ArtistProfile2.png" alt="Artist 2" className="w-full h-2/3 object-cover rounded-t-lg" />
                                 <div className="p-4">
                                     <h3 className="text-xl font-bold">Emma Davis</h3>
                                     <p className="text-gray-700">Jazz Singer/Songwriter</p>
                                 </div>
                             </Link>
-                            <Link to="/artistid" className="inline-block w-64 h-80 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                            <Link to="//artist/:id" className="inline-block w-64 h-80 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
                                 <img src="/Images/ArtistProfile3.png" alt="Artist 3" className="w-full h-2/3 object-cover rounded-t-lg" />
                                 <div className="p-4">
                                     <h3 className="text-xl font-bold">James Anderson</h3>
                                     <p className="text-gray-700">Visual Artist / Painter</p>
                                 </div>
                             </Link>
-                            <Link to="/artistid" className="inline-block w-64 h-80 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                            <Link to="//artist/:id" className="inline-block w-64 h-80 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
                                 <img src="/Images/ArtistProfile4.png" alt="Artist 4" className="w-full h-2/3 object-cover rounded-t-lg" />
                                 <div className="p-4">
                                     <h3 className="text-xl font-bold">Sophia Johnson</h3>
                                     <p className="text-gray-700">Dance Performer</p>
                                 </div>
                             </Link>
-                            <Link to="/artistid" className="inline-block w-64 h-80 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                            <Link to="//artist/:id" className="inline-block w-64 h-80 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
                                 <img src="/Images/ArtistProfile5.png" alt="Artist 5" className="w-full h-2/3 object-cover rounded-t-lg" />
                                 <div className="p-4">
                                     <h3 className="text-xl font-bold">Oliver Smith</h3>
@@ -175,6 +175,7 @@ const Home = () => {
                 </div>
             </section>
 
+          
             {/* Events Section */}
             <section className="py-12 px-6 bg-red-100 mt-6 mx-5">
                 <div className="container mx-auto text-center">
@@ -182,7 +183,8 @@ const Home = () => {
                     <div className="relative">
                         <button
                             onClick={handlePrevious}
-                            className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-red-700 text-white p-2 rounded-full focus:outline-none"
+                            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-red-700 text-white p-2 rounded-full focus:outline-none z-10"
+                            aria-label="Previous"
                         >
                             &lt;
                         </button>
@@ -212,23 +214,25 @@ const Home = () => {
                                     className="w-60 object-cover rounded-lg cursor-pointer"
                                     onClick={handleImageClick} // Add click handler
                                 />
-                                <img
+                                {/* <img
                                     src={events[(currentIndex + 4) % events.length].src}
                                     alt={events[(currentIndex + 4) % events.length].alt}
                                     className="w-60 object-cover rounded-lg cursor-pointer"
                                     onClick={handleImageClick} // Add click handler
-                                />
+                                /> */}
                             </div>
                         </div>
                         <button
                             onClick={handleNext}
-                            className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-red-700 text-white p-2 rounded-full focus:outline-none"
+                            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-red-700 text-white p-2 rounded-full focus:outline-none z-10"
+                            aria-label="Next"
                         >
                             &gt;
                         </button>
                     </div>
                 </div>
             </section>
+
 
 
             <section className="py-12 px-6 bg-red-100 mt-6 mx-5">

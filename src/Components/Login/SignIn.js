@@ -1,34 +1,39 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import axios from 'axios';
+import { auth, signInWithEmailAndPassword } from '../../Utils/firebase'; // Import Firebase auth
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../Utils/userSlice';
+import checkValidateData from '../../Utils/checkValidateData';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // const handleSignIn = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await axios.post('http://localhost:8070/auth/login', { email, password });
-  //     navigate('/home'); // Navigate to the home page after successful sign-in
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    // Directly navigate to /home without making an API call
-    navigate('/home');
+
+    const validationError = checkValidateData(email, password);
+    if (validationError) {
+      alert(validationError);
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      dispatch(setUser(email)); // Set email or username in Redux
+      navigate('/home');
+    } catch (error) {
+      console.error("Sign In Error:", error);
+      alert("Failed to sign in. Please check your credentials.");
+    }
   };
 
   return (
     <div className='bg-orange-100 min-h-screen flex items-center justify-center'>
       <div className="relative z-10 flex items-center justify-center w-full max-w-screen-xl mx-auto">
         <div className="flex bg-white rounded-lg shadow-lg w-full md:w-5/6 lg:w-4/5 xl:w-3/4">
-
-          {/* Left Column: Logo */}
           <div className="w-1/3 flex items-center justify-center border-r-2 border-red-700 p-10"
                style={{ backgroundImage: `url('/Images/Background.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="bg-opacity-50 p-6 rounded-lg">
@@ -38,8 +43,6 @@ const SignIn = () => {
               </p>
             </div>
           </div>
-
-          {/* Right Column: Form */}
           <div className="w-2/3 p-12"
                style={{ backgroundImage: `url('/Images/Background.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="border-2 border-red-700 bg-white bg-opacity-80 p-8 rounded-lg shadow-lg">
@@ -56,7 +59,6 @@ const SignIn = () => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-
                 <div className="mb-8">
                   <label className="block text-red-700 text-lg font-medium mb-2">Password</label>
                   <input
@@ -68,7 +70,6 @@ const SignIn = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-
                 <div className="flex items-center justify-center mb-6">
                   <button
                     className="bg-red-700 text-white font-bold py-3 px-6 rounded-lg w-full hover:bg-red-800 transition"
@@ -77,7 +78,6 @@ const SignIn = () => {
                     Sign In
                   </button>
                 </div>
-
                 <p className='text-sm text-center'>New to GetYourArtist?
                   <Link className="font-medium text-red-700 underline hover:text-red-800 transition" to="/signup"> Sign Up </Link>
                   Now

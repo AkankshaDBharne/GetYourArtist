@@ -182,6 +182,16 @@ const CreateBlogs = () => {
                         </button>
                     </div>
 
+                   <div className='flex flex-row mx-auto justify-center gap-4'> 
+                   <div className="flex  justify-center mt-6">
+                        <button
+                            type="submit"
+                            className="bg-green-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors"
+                        >
+                            Update Blog
+                        </button>
+                    </div>
+
                     <div className="flex justify-center mt-6">
                         <button
                             type="submit"
@@ -190,6 +200,7 @@ const CreateBlogs = () => {
                             Submit Blog
                         </button>
                     </div>
+                   </div>
 
                 </form>
             </div>

@@ -2,87 +2,80 @@ import React, { useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
+import artistsData from '../../Constants/artistsData';
+import { useNavigate } from 'react-router-dom';
+
+// Use original data with _id
+const cleanArtistsData = artistsData; // If _id is needed for navigation
 
 const Artist = () => {
-  // Dummy data for cards
-  const allArtists = [
-    {
-      id: 1,
-      name: 'Akanksha Bharne',
-      description: 'Classical Dancer',
-      city: 'Nagpur',
-      category: 'Classical Dancer',
-      image: '/Images/ArtistProfile2.png'
-    },
-    {
-      id: 2,
-      name: 'Dhairya Mehta',
-      description: 'Singer',
-      city: 'Mumbai',
-      category: 'Singer',
-      image: '/Images/ArtistProfile1.png'
-    },
-    {
-      id: 3,
-      name: 'Aditi Churad',
-      description: 'Classical Singer',
-      city: 'Nagpur',
-      category: 'Classical Singer',
-      image: '/Images/ArtistProfile1.png'
-    },
-    {
-      id: 4,
-      name: 'Aditi Sali',
-      description: 'Musical Band',
-      city: 'Nashik',
-      category: 'Musical Band',
-      image: '/Images/ArtistProfile1.png'
-    }
-  ];
-
-  const [filteredArtists, setFilteredArtists] = useState(allArtists);
+  const [filteredArtists, setFilteredArtists] = useState(cleanArtistsData);
+  const navigate = useNavigate(); // Hook to handle navigation
 
   const handleSearch = (searchParams) => {
     const { searchTerm, category, city } = searchParams;
 
-    const results = allArtists.filter(artist => {
-      const matchesName = artist.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = category ? artist.category === category : true;
-      const matchesCity = city ? artist.city === city : true;
+    console.log('Search Parameters:', searchParams);
 
-      return matchesName && matchesCategory && matchesCity;
+    const results = cleanArtistsData.filter(artist => {
+      const matchesCategory = category ? artist.genre === category : true;
+      const matchesCity = city ? artist.address.includes(city) : true;
+      const matchesSearchTerm = searchTerm ? artist.first_name.toLowerCase().includes(searchTerm.toLowerCase()) || artist.last_name.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+
+      console.log('Artist:', artist);
+      console.log('Matches Category:', matchesCategory);
+      console.log('Matches City:', matchesCity);
+      console.log('Matches Search Term:', matchesSearchTerm);
+
+      return matchesSearchTerm && matchesCategory && matchesCity;
     });
+
+    console.log('Search Results:', results);
 
     setFilteredArtists(results);
   };
 
+  const handleCardClick = (id) => {
+    if (id) {
+      navigate(`/artist/${id}`); // Navigate to ArtistPage with artist ID
+    } else {
+      console.error('Artist ID is undefined'); // Error handling
+    }
+  };
+
+  console.log('Initial artistsData:', cleanArtistsData);
+  console.log('Filtered artists:', filteredArtists);
+
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
-
       <div className="flex flex-1">
-        {/* Sidebar with onSearch prop */}
         <Sidebar onSearch={handleSearch} />
-
-        {/* Main Content Area */}
         <div className="flex-1 p-5 bg-gray-100">
-          <div className="flex flex-wrap gap-4">
-            {filteredArtists.map(artist => (
-              <div key={artist.id} className="bg-white p-4 rounded-lg shadow-lg w-64">
-                <img
-                  src={artist.image}
-                  alt={artist.name}
-                  className="w-full h-40 object-cover rounded-lg mb-3"
-                />
-                <h3 className="text-xl font-semibold mb-2">{artist.name}</h3>
-                <p className="text-gray-700">{artist.description}</p>
-                <p className="text-gray-700">{artist.city}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {filteredArtists.length > 0 ? (
+              filteredArtists.map(artist => (
+                <div
+                  key={artist._id} // Use _id as a unique key
+                  className="bg-white p-4 rounded-lg shadow-lg w-64 cursor-pointer"
+                  onClick={() => handleCardClick(artist._id)} // Pass artist ID to the handler
+                >
+                  <img
+                    src={artist.profilePhoto}
+                    alt={`${artist.first_name} ${artist.last_name}`}
+                    className="w-full h-40 object-cover rounded-lg mb-3"
+                  />
+                  <h3 className="text-xl font-semibold mb-2">{artist.first_name} {artist.last_name}</h3>
+                  <p className="text-gray-700">{artist.genre}</p>
+                  <p className="text-gray-700">{artist.address}</p>
+                </div>
+              ))
+            ) : (
+              <p>No artists found</p>
+            )}
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );

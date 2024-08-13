@@ -18,6 +18,7 @@ import TermsAndConditions from '../Footer/TermsAndConditions';
 import Events from '../Events/Events';
 import UserProfile from '../Profile/UserProfile';
 import Help from '../Footer/Help';
+import ErrorBoundary from '../Error/ErrorBoundary';
 
 
 
@@ -52,8 +53,8 @@ const Body = () => {
         element: <Artist />,
       },
       {
-        path: '/artistid',
-        element: <ArtistPage />,
+        path: "/artist/:id",
+        element: <ArtistPage />
       },
       {
         path: '/booking',
@@ -97,7 +98,7 @@ const Body = () => {
         path: '/userprofile',
         element: <UserProfile/>,
       },
-    
+      { path: '*', element: <ErrorBoundary /> }
     
     
   

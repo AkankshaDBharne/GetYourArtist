@@ -12,6 +12,7 @@ Frameworks / libraries use -
     1.TailwindCSS
     2.React Router Dom - for routing 
     3.Axios - for fetching data
+    4.Redux 
 
 
 Frontend -  React ,Tailwind Css

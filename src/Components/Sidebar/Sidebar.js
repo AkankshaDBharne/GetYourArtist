@@ -5,9 +5,22 @@ const Sidebar = ({ onSearch }) => {
     const [category, setCategory] = useState('');
     const [city, setCity] = useState('');
 
-    // Example lists for dropdowns
-    const categories = ['Classical Dancer', 'Singer', 'Musical Bands', 'Standup Comedian', 'Speakers'];
-    const cities = ['Nagpur', 'Mumbai', 'Nashik', 'Pune'];
+    // Updated list of categories
+    const categories = [
+        'Musician', 'Singer/Songwriter', 'Band', 'DJ', 'Comedian', 'Magician',
+        'Dance Performer', 'Circus Performer', 'Illusionist', 'Street Performer',
+        'Vocalist', 'Instrumentalist', 'Cover Band', 'Orchestra', 'Choral Group',
+        'Theater Actor', 'Stand-Up Comedian', 'Puppeteer', 'Poet', 'Spoken Word Artist',
+        'Visual Artist', 'Painter', 'Sculptor', 'Tattoo Artist', 'Voice Actor',
+    ];
+
+    const cities = [
+        'Hyderabad', 'Itanagar', 'Dispur', 'Patna', 'Raipur', 'Panaji', 'Gandhinagar', 
+        'Chandigarh', 'Shimla', 'Ranchi', 'Bengaluru', 'Thiruvananthapuram', 'Bhopal', 
+        'Mumbai', 'Imphal', 'Shillong', 'Aizawl', 'Kohima', 'Bhubaneswar', 
+        'Jaipur', 'Gangtok', 'Chennai', 'Agartala', 'Lucknow', 'Dehradun', 'Kolkata'
+      ];
+      
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
