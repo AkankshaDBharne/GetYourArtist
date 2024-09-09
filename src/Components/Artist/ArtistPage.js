@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom'; // Import Link here
+import { useParams, Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 import { FaFacebook, FaInstagram, FaGlobe } from 'react-icons/fa';
@@ -84,7 +84,7 @@ const ArtistPage = () => {
           <p className="text-gray-600 mb-2">Email: <a href={`mailto:${artist.email}`} className="text-blue-600 hover:underline">{artist.email}</a></p>
           <p className="text-gray-600 mb-2">Phone: {artist.contact_number}</p>
           <p className="text-gray-600 mb-4">Location: {artist.address}</p>
-          <Link to="/booking"> 
+          <Link to="/booking" state={{ artist }}>
             <button className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-6 rounded shadow-md transition-transform transform hover:scale-105">
               Book
             </button>

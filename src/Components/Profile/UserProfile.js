@@ -13,7 +13,7 @@ const UserProfile = () => {
     profilePhoto: null,
     description: '',
     username: '',
-    password: '', // Added for password management
+    password: '', 
   });
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -25,14 +25,14 @@ const UserProfile = () => {
     const fetchUserData = async () => {
       // Simulate fetching data
       setUserData({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@example.com',
-        phone: '123-456-7890',
-        address: '123 Main St',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        address: '',
         profilePhoto: null,
-        description: 'This is a brief description about John Doe.',
-        username: 'john_doe',
+        description: '',
+        username: '',
         password: '', // Clear password on load
       });
     };

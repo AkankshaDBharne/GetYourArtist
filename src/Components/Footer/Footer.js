@@ -5,7 +5,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
     return (
-        <footer className="text-amber-950 py-8 bg-cover bg-top my-10 mx-5"
+        <footer className="text-amber-950 py-12 bg-cover bg-top mt-10 mb-4"
                 style={{ backgroundImage: "url('/Images/Background.jpg')" }}
         >
             <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center">

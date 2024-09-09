@@ -2,20 +2,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
+import events from '../../Constants/events';
+
 
 const Home = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const intervalRef = useRef(null);
     const scrollIntervalRef = useRef(null);
     const navigate = useNavigate();
+    const scrollContainerRef = useRef(null);
 
-    const events = [
-        { src: "/Images/Event1.jpg", alt: "Event 1" },
-        { src: "/Images/Event2.jpg", alt: "Event 2" },
-        { src: "/Images/Event3.jpg", alt: "Event 3" },
-        { src: "/Images/Event4.jpg", alt: "Event 4" },
-        { src: "/Images/Event5.jpg", alt: "Event 5" }
-    ];
+    const scroll = (direction) => {
+        if (scrollContainerRef.current) {
+            const scrollAmount = direction === 'left' ? -300 : 300;
+            scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    };
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
@@ -84,25 +86,49 @@ const Home = () => {
                 `}</style>
 
                 {/* Image Cards Section */}
-                <div className="absolute bottom-0 w-full bg-black py-4">
-                    <div className="container mx-auto overflow-hidden px-4 flex gap-4 items-center auto-scroll-container" style={{ whiteSpace: 'nowrap' }}>
-                        <div className="flex gap-4">
-                            <img src="/Images/HC1_c.jpg" alt="Drums" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_a.jpg" alt="Stage" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_d.jpg" alt="Piano" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_b.jpg" alt="Paintbrushes" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_e.jpg" alt="Comedy" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_f.jpg" alt="Drums" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_g.jpg" alt="Stage" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_h.jpg" alt="Piano" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_i.jpg" alt="Paintbrushes" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                            <img src="/Images/HC1_j.jpg" alt="Comedy" className="w-64 h-32 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform" />
-                        </div>
+                <div className="relative w-full bg-black py-4 overflow-hidden">
+                    <div className="flex auto-scroll whitespace-nowrap">
+                        {/* Duplicated Image Cards */}
+                        {['HC1_c', 'HC1_a', 'HC1_d', 'HC1_b', 'HC1_e', 'HC1_f', 'HC1_g', 'HC1_h', 'HC1_i', 'HC1_j'].map((image, index) => (
+                            <img
+                                key={index}
+                                src={`/Images/${image}.jpg`}
+                                alt={image}
+                                className="w-64 h-32 object-cover rounded-lg shadow-lg transition-transform hover:scale-105"
+                            />
+                        ))}
+                        {['HC1_c', 'HC1_a', 'HC1_d', 'HC1_b', 'HC1_e', 'HC1_f', 'HC1_g', 'HC1_h', 'HC1_i', 'HC1_j'].map((image, index) => (
+                            <img
+                                key={index + 10}
+                                src={`/Images/${image}.jpg`}
+                                alt={image}
+                                className="w-64 h-32 object-cover rounded-lg shadow-lg transition-transform hover:scale-105"
+                            />
+                        ))}
                     </div>
+
+                    {/* Inline CSS for Auto Scroll */}
+                    <style jsx>{`
+      .auto-scroll {
+        display: flex;
+        animation: scrollImages 60s linear infinite;
+      }
+
+      @keyframes scrollImages {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+    `}</style>
                 </div>
             </div>
 
-            <section className="py-12 px-6 bg-orange-100 mt-6 mx-5">
+
+            {/* About Us section */}
+            <section className="py-12 px-6 mt-6 ">
                 <div className="container mx-auto">
                     <h2 className="text-3xl font-bold text-center text-red-700 mb-6">About Us</h2>
                     <p className="text-lg text-gray-800 mb-6 mx-auto max-w-3xl text-center">
@@ -115,7 +141,7 @@ const Home = () => {
             </section>
 
             {/* Artist Details Section */}
-            <section className="py-12 px-6 bg-orange-100 mt-6 mx-5">
+            <section className="py-12 px-6 bg-orange-100 mt-6 ">
                 <div className="container mx-auto">
                     <h2 className="text-3xl font-bold text-center text-red-700 mb-6">Some Featured Artists...</h2>
                     <div className="overflow-hidden whitespace-nowrap flex gap-4 items-center">
@@ -175,67 +201,69 @@ const Home = () => {
                 </div>
             </section>
 
-          
+
             {/* Events Section */}
-            <section className="py-12 px-6 bg-red-100 mt-6 mx-5">
-                <div className="container mx-auto text-center">
-                    <h2 className="text-3xl font-bold text-red-700 mb-6">Upcoming Events</h2>
-                    <div className="relative">
-                        <button
-                            onClick={handlePrevious}
-                            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-red-700 text-white p-2 rounded-full focus:outline-none z-10"
-                            aria-label="Previous"
-                        >
-                            &lt;
-                        </button>
-                        <div className="flex justify-center items-center overflow-hidden">
-                            <div className="flex w-full max-w-screen-lg space-x-6">
-                                <img
-                                    src={events[currentIndex].src}
-                                    alt={events[currentIndex].alt}
-                                    className="w-60 object-cover rounded-lg cursor-pointer"
-                                    onClick={handleImageClick} // Add click handler
-                                />
-                                <img
-                                    src={events[(currentIndex + 1) % events.length].src}
-                                    alt={events[(currentIndex + 1) % events.length].alt}
-                                    className="w-60 object-cover rounded-lg cursor-pointer"
-                                    onClick={handleImageClick} // Add click handler
-                                />
-                                <img
-                                    src={events[(currentIndex + 2) % events.length].src}
-                                    alt={events[(currentIndex + 2) % events.length].alt}
-                                    className="w-60 object-cover rounded-lg cursor-pointer"
-                                    onClick={handleImageClick} // Add click handler
-                                />
-                                <img
-                                    src={events[(currentIndex + 3) % events.length].src}
-                                    alt={events[(currentIndex + 3) % events.length].alt}
-                                    className="w-60 object-cover rounded-lg cursor-pointer"
-                                    onClick={handleImageClick} // Add click handler
-                                />
-                                {/* <img
-                                    src={events[(currentIndex + 4) % events.length].src}
-                                    alt={events[(currentIndex + 4) % events.length].alt}
-                                    className="w-60 object-cover rounded-lg cursor-pointer"
-                                    onClick={handleImageClick} // Add click handler
-                                /> */}
-                            </div>
+            (
+        <section className="py-12 px-6 mt-6 bg-gray-100 relative">
+            <div className="container mx-auto">
+                <h2 className="text-3xl font-bold text-center text-red-700 mb-6">Upcoming Events</h2>
+                <div className="relative">
+                    <div
+                        className="flex overflow-x-auto scrollbar-hidden"
+                        ref={scrollContainerRef}
+                        style={{
+                            scrollBehavior: 'smooth',
+                            scrollbarWidth: 'none',
+                            msOverflowStyle: 'none', 
+                        }}
+                    >
+                        <div className="flex gap-4">
+                            {events.map((event, index) => (
+                                <div
+                                    key={index}
+                                    className="flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-4 mb-6"
+                                >
+                                    <Link to="/events" className="block">
+                                        <div
+                                            className="relative bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+                                            style={{ height: '500px' }} // Fixed height for images
+                                        >
+                                            <img
+                                                src={event.src}
+                                                alt={event.title}
+                                                className="w-full h-full object-cover"
+                                                style={{ backgroundSize: 'cover', backgroundPosition: 'center' }}
+                                            />
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
                         </div>
-                        <button
-                            onClick={handleNext}
-                            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-red-700 text-white p-2 rounded-full focus:outline-none z-10"
-                            aria-label="Next"
-                        >
-                            &gt;
-                        </button>
                     </div>
+                    {/* Navigation Arrows */}
+                    <button
+                        className="absolute top-1/2 left-4 transform -translate-y-1/2  text-white p-2 rounded-full shadow-lg hover:bg-gray-800"
+                        onClick={() => scroll('left')}
+                        aria-label="Scroll left"
+                    >
+                        &lt;
+                    </button>
+                    <button
+                        className="absolute top-1/2 right-4 transform -translate-y-1/2  text-white p-2 rounded-full shadow-lg hover:bg-gray-800"
+                        onClick={() => scroll('right')}
+                        aria-label="Scroll right"
+                    >
+                        &gt;
+                    </button>
                 </div>
-            </section>
+            </div>
+        </section>
 
 
 
-            <section className="py-12 px-6 bg-red-100 mt-6 mx-5">
+
+
+            <section className="py-12 px-6 bg-red-100 mt-6 ">
                 <div className="container mx-auto flex items-center">
                     <div className="w-full lg:w-1/2 flex justify-center">
                         <img
@@ -267,7 +295,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-12 px-6 bg-orange-100 mt-6 mx-5">
+            <section className="py-12 px-6  mt-6 ">
                 <div className="container mx-auto flex flex-col items-center justify-center text-center">
                     <h3 className="text-3xl font-bold text-red-700 mb-4">Artistry Through the Lens</h3>
                     <img

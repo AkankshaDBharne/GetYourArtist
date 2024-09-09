@@ -9,13 +9,13 @@ const AboutUs = () => {
       <Navbar />
 
       <div
-        className="relative py-4 mx-5 bg-cover bg-center flex items-center justify-center "
+        className="relative py-4 mx-5 bg-cover bg-center flex items-center justify-center transition-transform duration-500 ease-in-out hero-image"
         style={{
           backgroundImage: "url('/Images/AboutContainer.jpg')",
           height: '60vh',
           backgroundSize: 'cover',
-          backgroundPosition: 'center' 
-          
+          backgroundPosition: 'center',
+          animation: 'zoomInOut 15s infinite ease-in-out'
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -25,11 +25,11 @@ const AboutUs = () => {
       </div>
 
       {/* Mission Section */}
-      <div className="py-8 mx-20 mt-10 flex items-start relative">
+      <div className="py-8 mx-20 mt-10 flex items-start relative ">
         <img
           src="/Images/AboutMission.png"
           alt="Mission"
-          className="w-60 h-60 rounded-full border-4 border-red-300 absolute -top-6 -left-2 z-10 "
+          className="w-60 h-60 rounded-full border-4 border-red-300 absolute -top-6 -left-2 z-10 animate-zoom-in-up "
         />
         <div className="flex-1 bg-orange-200 ml-32 mt-1 rounded-xl py-12 border-none p-8 shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110">
           <h3 className="text-2xl font-semibold text-center text-red-700">Mission</h3>
@@ -57,12 +57,12 @@ const AboutUs = () => {
         <img
           src="/Images/AboutVision.jpg"
           alt="Vision"
-          className="w-60 h-60 rounded-full border-4 border-red-300 absolute -top-6 -right-2 z-10"
+          className="w-60 h-60 rounded-full border-4 border-red-300 absolute -top-6 -right-2 z-10 animate-zoom-in-up"
         />
       </div>
 
       {/* Services Section */}
-      <div className="py-8 mx-5 border border-orange-200 border-6 ">
+      <div className="py-8 mx-5 border border-orange-200 border-6">
         <h2 className="text-3xl font-bold text-center mb-4 mx-10 text-red-700">Our Services</h2>
         <div className="flex flex-wrap justify-center gap-4">
 
@@ -75,26 +75,41 @@ const AboutUs = () => {
             <h3 className="text-xl font-semibold text-center mt-4 text-red-700">Artist Booking</h3>
           </div>
 
-
           <div className="w-80 h-80 p-2 flex flex-col items-center">
-            <img src="/Images/AService5.jpg" alt="Service 5" className="w-64 h-64 object-cover rounded shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110" />
+            <img
+              src="/Images/AService5.jpg"
+              alt="Service 5"
+              className="w-64 h-64 object-cover rounded shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
+            />
             <h3 className="text-xl font-semibold text-center mt-4 text-red-700">Customer Support</h3>
           </div>
 
           <div className="w-80 h-80 p-2 flex flex-col items-center">
-            <img src="/Images/AService3.jpg" alt="Service 3" className="w-64 h-64 object-cover rounded shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110" />
+            <img
+              src="/Images/AService3.jpg"
+              alt="Service 3"
+              className="w-64 h-64 object-cover rounded shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
+            />
             <h3 className="text-xl font-semibold text-center mt-4 text-red-700">Artist Promotion</h3>
           </div>
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 mt-8">
           <div className="w-80 h-80 p-2 flex flex-col items-center">
-            <img src="/Images/AService4.jpg" alt="Service 4" className="w-64 h-64 object-cover rounded shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110" />
+            <img
+              src="/Images/AService4.jpg"
+              alt="Service 4"
+              className="w-64 h-64 object-cover rounded shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
+            />
             <h3 className="text-xl font-semibold text-center mt-4 text-red-700">Community Engagement</h3>
           </div>
 
           <div className="w-80 h-80 p-2 flex flex-col items-center">
-            <img src="/Images/AService2.jpg" alt="Service 2" className="w-64 h-64 object-cover rounded shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110" />
+            <img
+              src="/Images/AService2.jpg"
+              alt="Service 2"
+              className="w-64 h-64 object-cover rounded shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
+            />
             <h3 className="text-xl font-semibold text-center mt-4 text-red-700">Event Management</h3>
           </div>
         </div>

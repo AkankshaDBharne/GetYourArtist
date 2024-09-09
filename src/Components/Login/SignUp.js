@@ -26,8 +26,8 @@ const SignUp = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Dispatch action to update username in Redux state
-      dispatch(setUser(name)); // Using `name` here as the username
+      // Dispatch action to update user in Redux state
+      dispatch(setUser({ name, email }));
 
       navigate('/home');
     } catch (error) {

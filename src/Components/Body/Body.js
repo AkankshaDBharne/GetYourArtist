@@ -19,6 +19,7 @@ import Events from '../Events/Events';
 import UserProfile from '../Profile/UserProfile';
 import Help from '../Footer/Help';
 import ErrorBoundary from '../Error/ErrorBoundary';
+import MyProfile from '../Profile/MyProfile';
 
 
 
@@ -98,6 +99,8 @@ const Body = () => {
         path: '/userprofile',
         element: <UserProfile/>,
       },
+      {path:'/myprofile', element : <MyProfile /> } ,
+      
       { path: '*', element: <ErrorBoundary /> }
     
     
