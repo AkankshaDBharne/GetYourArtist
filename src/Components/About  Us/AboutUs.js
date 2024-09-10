@@ -9,20 +9,32 @@ const AboutUs = () => {
       <Navbar />
 
       <div
-        className="relative py-4 mx-5 bg-cover bg-center flex items-center justify-center transition-transform duration-500 ease-in-out hero-image"
+        className="relative py-4 mx-5 mt-4 bg-cover bg-center flex items-center justify-center hero-image"
         style={{
           backgroundImage: "url('/Images/AboutContainer.jpg')",
           height: '60vh',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          animation: 'zoomInOut 15s infinite ease-in-out'
+          animation: 'zoomInOut 20s infinite ease-in-out',
+          transformOrigin: 'center'
         }}
       >
+        <style>{`
+    @keyframes zoomInOut {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+  `}</style>
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 text-center">
           <h2 className="text-4xl font-bold text-white">About Us</h2>
         </div>
       </div>
+
 
       {/* Mission Section */}
       <div className="py-8 mx-20 mt-10 flex items-start relative ">
@@ -62,8 +74,26 @@ const AboutUs = () => {
       </div>
 
       {/* Services Section */}
-      <div className="py-8 mx-5 border border-orange-200 border-6">
-        <h2 className="text-3xl font-bold text-center mb-4 mx-10 text-red-700">Our Services</h2>
+      <style>{`
+  @keyframes slideUpFadeIn {
+    0% {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slideUpFadeIn {
+    animation: slideUpFadeIn 1s forwards;
+  }
+`}</style>
+
+      <div className="py-8 mx-5 border border-orange-200 border-6 transform opacity-0 transition-all duration-1000 ease-in-out animate-slideUpFadeIn" id="services-section">
+        <h2 className="text-3xl font-bold text-center mb-4 mx-auto text-red-700">Our Services</h2>
+
         <div className="flex flex-wrap justify-center gap-4">
 
           <div className="w-80 h-80 p-2 flex flex-col items-center">
