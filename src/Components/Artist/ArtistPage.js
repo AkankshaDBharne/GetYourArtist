@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
+import Shimmer from '../Shimmer/Shimmer'; // Adjust path as necessary
 import { FaFacebook, FaInstagram, FaGlobe } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import artistsData from '../../Constants/artistsData';
+import ShimmerArtist from '../Shimmer/ShimmerArtist';
 
 const ArtistPage = () => {
   const { id } = useParams();
@@ -33,7 +35,7 @@ const ArtistPage = () => {
     fetchArtistData();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <ShimmerArtist />;
   if (error) return <p>Error loading data: {error.message}</p>;
   if (!artist) return <p>No artist data found.</p>;
 
